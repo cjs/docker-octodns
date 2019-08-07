@@ -37,6 +37,14 @@ workflow "Build & test on push" {
   ]
 }
 
+workflow "Publish to Docker Hub on push to master" {
+  on       = "push"
+
+  resolves = [
+    "Publish octodns"
+  ]
+}
+
 action "Test octodns" {
   uses = "parkr/actions/docker-make@master"
   args = "test-octodns"
@@ -64,6 +72,6 @@ action "Publish octodns to GitHub Package Registry" {
   args  = [
     "publish-octodns",
     "-e",
-    "NAMESPACE=docker.pkg.github.com/cjs/dockerfiles"
+    "NAMESPACE=docker.pkg.github.com/cjs/docker-octodns"
   ]
 }
