@@ -67,6 +67,6 @@ action "Publish octodns to GitHub Package Registry" {
     "GitHub Package Registry Login",
   ]
   args = [
-    "publish-octodns-gps",
+    "publish-octodns-gpr",
   ]
 }
