@@ -57,7 +57,7 @@ action "Publish octodns" {
     "Docker Login",
   ]
   args = [
-    "publish-octodns",
+    "publish-octodns-docker",
   ]
 }
 
@@ -67,8 +67,6 @@ action "Publish octodns to GitHub Package Registry" {
     "GitHub Package Registry Login",
   ]
   args = [
-    "publish-octodns",
-    "-e",
-    "NAMESPACE=docker.pkg.github.com/cjs/docker-octodns",
+    "publish-octodns-gps",
   ]
 }
