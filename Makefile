@@ -15,7 +15,7 @@ test-octodns: build-octodns
 	bash test.sh $(TAG)
 
 publish-octodns: test-octodns
-	$(eval VERSION := $(shell cat $(PROJECT_NAME)/VERSION))
+	$(eval VERSION := $(shell cat VERSION))
 	$(eval REPO := $(NAMESPACE)/$(PROJECT_NAME))
 	$(eval TAG := $(REPO):$(TAG_PREFIX)$(VERSION))
 	docker push $(TAG)
