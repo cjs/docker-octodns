@@ -2,22 +2,30 @@ on:
   push:
     branches:
       - master
+      - docker-push-test
+
 name: Publish to Docker Hub on push to master
 jobs:
-  deployToDockerHug:
+  deployToDockerHub:
+    name: Deploy to Docker Hub
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: On master branch
-      uses: actions/bin/filter@master
-      with:
-        args: branch master
     - name: Docker Login
-      uses: actions/docker/login@master
+      uses: parkr/actions/docker-auth@master
+      with:
+        args: login
       env:
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        DOCKER_REGISTRY_URL: docker.io
     - name: Publish octodns
       uses: parkr/actions/docker-make@master
       with:
-        args: publish-octodns-docker
+        args: publish-octodns -e NAMESPACE=csteinbe
+    - name: Docker Logout
+      uses: parkr/actions/docker-auth@master
+      with:
+        args: logout
+      env:
+        DOCKER_REGISTRY_URL: docker.io

@@ -2,23 +2,31 @@ on:
   push:
     branches: 
       - master
+      - docker-push-test
+
 name: Publish to GitHub Package Registry on push to master
 jobs:
   deployToGPR:
-    name: On master branch
+    name: Deploy to GitHub Package Registry
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: On master branch
-      uses: actions/bin/filter@master
-      with:
-        args: branch master
     - name: GitHub Package Registry Login
-      uses: parkr/dockerfiles/.github/actions/github-pkg-login@master
+      uses: parkr/actions/docker-auth@master
+      with:
+        args: login
       env:
-        GPR_PASSWORD: ${{ secrets.GPR_PASSWORD }}
-        GPR_USERNAME: ${{ secrets.GPR_USERNAME }}
-    - name: Publish octodns to GitHub Package Registry
+        DOCKER_USERNAME: ${{ secrets.GPR_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.GPR_PASSWORD }}
+        DOCKER_REGISTRY_URL: docker.pkg.github.com
+    - name: Publish octdns to GitHub Package Registry
       uses: parkr/actions/docker-make@master
       with:
-        args: publish-octodns-gpr
+        args: publish-octodns -e NAMESPACE=docker.pkg.github.com/cjs/docker-octodns
+    - name: GitHub Package Registry Logout
+      uses: parkr/actions/docker-auth@master
+      with:
+        args: logout
+      env:
+        DOCKER_REGISTRY_URL: docker.pkg.github.com
+
