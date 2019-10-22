@@ -1,8 +1,10 @@
-on: push
+on:
+  push:
+    branches:
+      - master
 name: Publish to Docker Hub on push to master
 jobs:
-  onMasterBranch:
-    name: On master branch
+  deployToDockerHug:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
