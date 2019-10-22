@@ -20,7 +20,7 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.GPR_PASSWORD }}
         DOCKER_REGISTRY_URL: docker.pkg.github.com
     - name: Publish octdns to GitHub Package Registry
-    - uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@master
       with:
         args: publish-octodns -e NAMESPACE=docker.pkg.github.com/cjs/docker-octodns
           -e TAG_PREFIX=sha-
