@@ -23,7 +23,6 @@ jobs:
       uses: parkr/actions/docker-make@master
       with:
         args: publish-octodns -e NAMESPACE=docker.pkg.github.com/cjs/docker-octodns
-          -e TAG_PREFIX=sha-
     - name: GitHub Package Registry Logout
       uses: parkr/actions/docker-auth@master
       with:
