@@ -1,7 +1,10 @@
-on: push
+on:
+  push:
+    branches: 
+      - master
 name: Publish to GitHub Package Registry on push to master
 jobs:
-  onMasterBranch:
+  deployToGPR:
     name: On master branch
     runs-on: ubuntu-latest
     steps:
