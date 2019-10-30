@@ -14,9 +14,10 @@ RUN apk add --update \
     libffi-dev \
     openssl-dev \
     build-base
-RUN pip install /usr/share/octodns boto3 azure-mgmt-dns azure-common
+RUN pip install /usr/share/octodns boto3 azure-mgmt-dns azure-common yamllint
 
 FROM python:2-alpine
 COPY --from=build /usr/local/lib/python2.7/site-packages /usr/local/lib/python2.7/site-packages
 COPY --from=build /usr/local/bin/octodns-* /usr/local/bin/
 CMD [ "/bin/sh" ]
+
